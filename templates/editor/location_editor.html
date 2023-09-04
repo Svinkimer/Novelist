@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <title>{{ location.title }}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+</head>
+
+<body>
+    <h1> {{ location.title }} </h1>
+    <img src="{{ location.img.url }}" alt="Please, upload location image" height="400">
+    <form action="{% url 'editor:edit location' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ location_form.as_p }}
+        
+        <input type="hidden" name="location_id" value="{{ location.id }}">
+        <button type="Submit">Apply Changes</button>
+    </form>
+
+</body>
+</html>

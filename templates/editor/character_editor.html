@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <title>{{ hero.name }}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+</head>
+
+<body>
+    <h1> {{ hero_obj.name }} </h1>
+    <form action="{% url 'editor:edit hero' %}" method="POST">
+        {% csrf_token %}
+        {{ hero_form.as_p }}
+        <input type="hidden" name="new" value="false"> 
+        <input type="hidden" name="id" value="{{ hero_obj.id }}">
+        <button type="Submit">Apply Changes</button>
+    </form>
+
+    <!-- Список состояний героя -->
+
+    <h2>States</h2>
+    <ul>
+        {% for state in states %}
+            <li><img src="{{ state.img.url }}" alt="Please, upload image of state" height="200"><a href="{% url 'editor:edit hero' %}?id={{ hero_obj.id }}&state_id={{ state.id }}">{{ state }}</a></li>
+            {% if state.id == edited_id %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ state_form.as_p }}
+                    <input type="hidden" name="state_id" value="{{ state.id }}">
+                    <input type="hidden" name="id" value="{{ hero_obj.id }}">
+                    <button type="Submit">Apply Changes</button>
+                </form>
+            {% endif %}
+        {% endfor %}
+    </li>
+
+
+    <!-- Создать новое состояние -->
+
+    <form action="{% url 'editor:edit hero' %}" method="GET">
+        <input type="hidden" name="new_state" value="true">
+        <input type="hidden" name="id" value="{{ hero_obj.id }}">
+        <button type="Submit">Add State</button>
+    </form>
+
+
+</body>
+</html>

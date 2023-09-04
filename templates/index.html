@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Novelist</title>
+        <meta charset="utf8">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <h1>Welcome to Novelist!</h1>
+        <h3><a href="{% url 'login:sign in' %}">sign in</a></h3>
+        <h3><a href="{% url 'login:sign up' %}">sign up</a></h3>
+
+        <h2>What is Novelist?</h2>
+        <p> Novelist - is a platform, that allows you to easily create, edit, and share your visual novells. Novelist consists of several parts:</p>
+        <ol>
+
+            <li><b>Market</b></li>
+            <p>Online market of Novels, posted by users of Novelist. Here you can find novells, lying in large spectrum of ganre, scale, and team solidity. Also, freelance section (for art, music, etc) is in progress.</p>
+
+            <li><b>Reader</b></li>
+            <p>Reader is a Novelist's web-app, that allows you to read VN, that you have added to your collection from Market.</p>
+
+            <li><b>Editor</b></li>
+            <p>With Editor, you can create your own visual novell. All you have to do, is load your images of characters and locations, set some information about them (like states of charachter), and you are free to create your stories without any programming knowlege. Novelist Editor is equipped with simple, but complete visual interface, which is so intuitive, that you will understand it even without any tutorials. 
+            </p>
+            <p>For theese, who preferes rapidity of workflow, there is possibility to increase speed of work by victimizing interface while scene creation: you can write scenes as text in special format, and parse them into Novelist Scene after complition. Few minutes of text correction  with text parser - and you are free! No mouse or touchpad used - just like Vim)))</p>
+            <p>We already mentioned, that there is no need to be a programmer, to create your novells. But have you supposed, that you even haven't know, how to draw? In Novelist, you can use large free asset librarym that includes music, backgrounds and characters to breathe life in your stories. There is nothing, that can stop you from creating your first adventure!</p>
+            <p>For premium users of Novelist, some advanced possibilities are available: for exammple, you can use embeded Midjourney and ChatGPT to create images of characters by description.</p>
+
+        </ol>
+        <h2>How do I create my first novell?</h2>
+        <h2>Can I do some money with my creativity?</h2>
+        {% include 'navibar.html' %}
+    </body>
+</html>
+

@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Scene</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <h1>{{ scene.title }}</h1>
+        
+
+
+        <!-- Форма сцены -->
+
+        <form action="{% url 'editor:edit scene' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="id" value="{{ scene.id }}">
+            <input type="hidden" name="action" value="edit_scene">
+            
+            <button type="Submit">Apply Scene Changes</button>
+        </form>
+
+
+
+        <!-- Список ивентов-->
+
+        <ol>
+            {% for event in events %}
+                <li><a href="{% url 'editor:edit scene' %}?id={{ scene.id }}&event_id={{ event.id }}">{{ event }}</a></li>
+
+                <!-- Форма редактируемого ивента -->
+
+                {% if edited_id == event.id %}
+
+                    <form action="{% url 'editor:edit scene' %}" method="POST">
+                        {% csrf_token %}
+                        {{ event_form }}
+                        <input type="hidden" name="event_id" value="{{ event.id }}">
+                        <input type="hidden" name="id" value="{{ scene.id }}">
+                        <input type="hidden" name="action" value="edit_event">
+                        <button type="Submit">Save Changes</button>
+
+                    </form>
+                {% endif %}
+
+            {% endfor %}
+        </ol>
+
+
+        <!-- Создать новый ивент -->
+
+        <form action="{% url 'editor:edit scene' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ scene.id }}">
+            <input type="hidden" name="action" value="add_event">
+            <select name="type">
+                <option value="R">Replic</option>
+                <option value="A">Arrival/Leave</option>
+                <option value="T">Show Title</option>
+            </select>
+            <button type="Submit">Add Event</button>
+        </form>
+
+
+        <!-- Устаревшее меню реплики -->
+        
+        <form>
+            <input type="hidden" name="action" value="add_replic">
+            <h3>Add replic</h3>
+            {% for replic in replics %}
+            <p>{{ replic }}</p>
+            {% endfor %}
+          
+        </form>
+        <h2>Preview</h2>
+        <img src="{{ scene.location.img.url }}" alt="{{ scene.location.img.url }}" height="300">
+        {% include 'navibar.html' %}
+    </body>
+
+</html>

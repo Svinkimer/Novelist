@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <h1>{{ story.title }}</h1>
+        <h2>Story</h2>
+        <img src="{{ story.img.url }}" alt="Please, upload Poster" height="200">
+
+        <form action="{% url 'editor:edit story' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="story_id" value="{{ story.id }}">
+            <button type="Submit">Apply changes</button>
+        </form>
+        
+        <p></p>
+        <h2>Heroes</h2>
+
+        <ul>
+            {% for hero in heroes %}
+            <li><a href="{% url 'editor:edit hero' %}?id={{ hero.id }}">{{ hero }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <form action="{% url 'editor:edit hero' %}" method="GET">
+            <input type="hidden" name="new" value="true">
+            <button type="Submit">Create new Hero</button>
+        </form>
+
+
+
+
+        <h2>Locations</h2>
+
+        <ul>
+            {% for location in locations %}
+                <li><a href="{% url 'editor:edit location' %}?location_id={{ location.id }}">{{ location }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+        <form action="{% url 'editor:edit location' %}" method="GET">
+            <input type="hidden" name='new' value='true'>
+            <button type="Submit">Add Location</button>
+        </form>
+
+
+
+        <h2>Scenes</h2>
+        
+        <ol>
+        {% for scene in scenes %}
+            <li><a href="{% url 'editor:edit scene' %}?id={{ scene.id }}">{{ scene }}</a></li>
+        {% endfor %}
+        </ol>
+        
+
+        <form action="{% url 'editor:edit scene' %}" method="GET">
+            <input type="hidden" name="new" value="true">
+            <input type="hidden" name="story_id" value="{{ story.id }}">
+            <button type="Submit">Add Scene</button>
+        </form>
+
+    </body>
+</html>

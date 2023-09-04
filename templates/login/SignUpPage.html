@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test Form</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <form action="{% url 'login:sign up' %}" method='POST'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submin">Create New Account</button>
+        </form>
+        <h3>Errors:</h3>
+        <ol>
+            {{ errors_msg }}
+        </ol>
+
+    </body>

@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editor</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <h1>Welcome, {{ user.username }}!</h1>
+        {% if len %}
+            <h2>Your projects:</h2>
+            <ol> 
+            {% for story in projects %}
+                <a href="{% url 'editor:edit story' %}?story_id={{ story.id }}"><li>{{ story }}</li></a>
+            {% endfor %}
+            </ol>
+
+        {% else %}
+            <h2> You have no projects yet... Good time to make first!<h2>
+            
+        {% endif %}
+        <form action="{% url 'editor:edit story' %}" method="GET">
+            <input type='hidden' name='new' value='true'>
+            <button type="submit">Create new project!</button>
+        </form>
+        <h2>Best Tutorials:</h2>
+        <ul>
+            <li>How to create project?</li>
+            <li>How to create character?</li>
+            <li>How to create location?</li>
+        </ul>
+
+    </body>
+</html>

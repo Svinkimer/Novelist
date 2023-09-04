@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editor</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sepia.css' %}">
+    </head>
+
+    <body>
+        <h1>Sign up/Sign in</h1>
+        <p>If you want to create new novells, you have to sign in your account first (or create new, if you haven't yet). We are sorry to trouble you, but it is nessesarry for our team to have possibility of direct communication with our partners</p>
+        
+        <form action="{% url 'login:sign_in' %}">
+            <button type="submit">Sign in</button>
+        </form>
+        <form action="{% url 'login:sign_up' %}">
+            <button type="submit">Sign un</button>
+        </form>
+
+        <h2>Best Tutorials:</h2>
+        <ul>
+            <li>How to create project?</li>
+            <li>How to create character?</li>
+            <li>How to create location?</li>
+        </ul>
+
+    </body>
+</html>
